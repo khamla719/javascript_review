@@ -19,5 +19,19 @@ var showForm = function() {
 }
 
 var postForm = function() {
-
+  $("#sidebar").on("submit", "#post_form", function(e){
+    e.preventDefault();
+    var url = $(this).attr("action");
+    var data = $(this).serialize();
+    var request = $.ajax({
+      method: "post",
+      url: url,
+      data: data
+    })
+    request.done(function(response){
+      $("#posts").append(response);
+      $("#post_form").remove();
+      $("#new_post_link").toggle();
+    })
+  })
 }
